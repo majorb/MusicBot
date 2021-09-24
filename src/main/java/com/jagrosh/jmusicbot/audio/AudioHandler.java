@@ -26,7 +26,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import com.jagrosh.jmusicbot.queue.FairQueue;
+import com.jagrosh.jmusicbot.queue.SimpleQueue;
 import com.jagrosh.jmusicbot.settings.Settings;
 import com.jagrosh.jmusicbot.utils.FormatUtil;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioTrack;
@@ -45,7 +45,7 @@ import net.dv8tion.jda.api.entities.User;
  */
 public class AudioHandler extends AudioEventAdapter implements AudioSendHandler 
 {
-    private final FairQueue<QueuedTrack> queue = new FairQueue<>();
+    private final SimpleQueue<QueuedTrack> queue = new SimpleQueue<>();
     private final List<AudioTrack> defaultQueue = new LinkedList<>();
     private final Set<String> votes = new HashSet<>();
     
@@ -87,7 +87,7 @@ public class AudioHandler extends AudioEventAdapter implements AudioSendHandler
             return queue.add(qtrack);
     }
     
-    public FairQueue<QueuedTrack> getQueue()
+    public SimpleQueue<QueuedTrack> getQueue()
     {
         return queue;
     }

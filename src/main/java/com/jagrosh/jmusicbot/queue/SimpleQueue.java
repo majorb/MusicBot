@@ -25,33 +25,12 @@ import java.util.Set;
  * @author John Grosh (jagrosh)
  * @param <T>
  */
-public class FairQueue<T extends Queueable> {
+public class SimpleQueue<T extends Queueable> {
     private final List<T> list = new ArrayList<>();
-    private final Set<Long> set = new HashSet<>();
     
     public int add(T item)
     {
-        int lastIndex;
-        //iterate through the queue backwards
-        for(lastIndex=list.size()-1; lastIndex>-1; lastIndex--)
-            //if the submitter of the new track has also submitted
-            //the track with the index we are currently looking at, break
-            if(list.get(lastIndex).getIdentifier()==item.getIdentifier())
-                break;
-        //wherever we broke off, we want to work with the next slot
-        lastIndex++;
-        //clear the set of submitters
-        set.clear();
-        //iterate forwards through the queue from the point we broke off
-        for(; lastIndex<list.size(); lastIndex++)
-        {
-            //if we find a duplicate submitter, stop iterating
-            if(set.contains(list.get(lastIndex).getIdentifier()))
-                break;
-            //otherwise, add the submitter of the current track to the set
-            set.add(list.get(lastIndex).getIdentifier());
-        }
-        //add the item at the current place we broke out of the loop and return the index
+        int lastIndex = list.size();
         list.add(lastIndex, item);
         return lastIndex;
     }
